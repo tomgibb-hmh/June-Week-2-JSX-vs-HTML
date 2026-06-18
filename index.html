@@ -1,25 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Document setup — tells the browser how to read this page -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing Plans — HTML version</title>
+
+    <!-- Fonts — loads Inter from Google Fonts (matches design system) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles — all visual design lives in styles.css -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- Page label — fixed badge so you know which version you're viewing -->
     <p class="page-label"><strong>HTML version</strong> — static markup</p>
+
+    <!-- Cards row — flex container that holds all pricing cards side by side -->
     <div class="cards-container">
+
+        <!-- ── Card 1: Hobby ─────────────────────────────────────────────
+             Each card uses the same HTML structure. Only the text changes.
+             class names hook into styles.css — they are not decorative. -->
         <div class="card">
+            <!-- card-top — groups title, price, and feature list above the button -->
             <div class="card-top">
                 <h3 class="card-title">Hobby</h3>
+
+                <!-- Price — amount and period are separate spans for different font sizes -->
                 <p class="card-price">
                     <span class="card-price-amount">Free</span>
                 </p>
+
                 <div class="card-content">
                     <p class="includes-text">Includes:</p>
+
+                    <!-- Feature list — each <li> is one row with a checkmark + text -->
                     <ul class="features-list">
                         <li>
                             <span class="checkmark">✓</span>
@@ -36,8 +55,12 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- Button — "secondary" class = light gray style (see styles.css) -->
             <button class="download-button secondary">Download</button>
         </div>
+
+        <!-- ── Card 2: Pro — same structure as Hobby, different content ── -->
         <div class="card">
             <div class="card-top">
                 <h3 class="card-title">Pro</h3>
@@ -67,8 +90,44 @@
                     </ul>
                 </div>
             </div>
+            <!-- "primary" class = dark filled button (main call to action) -->
             <button class="download-button primary">Get Pro</button>
         </div>
+
+        <!-- ── HOW TO ADD A NEW CARD ───────────────────────────────────
+             1. Copy a whole <div class="card">...</div> block (use Pro as a template)
+             2. Paste it inside .cards-container — new cards sit in the same row
+             3. Update title, price, includes line, each <li>, and button text
+             4. Button style: add "secondary" (gray), "primary" (dark), or "tertiary"
+             ── Card 3: Enterprise (added using the steps above) ─────────── -->
+        <div class="card">
+            <div class="card-top">
+                <h3 class="card-title">Enterprise</h3>
+                <p class="card-price">
+                    <span class="card-price-amount">$100</span>
+                    <span class="card-price-period">/mo.</span>
+                </p>
+                <div class="card-content">
+                    <p class="includes-text">Everything in Pro, plus:</p>
+                    <ul class="features-list">
+                        <li>
+                            <span class="checkmark">✓</span>
+                            Unlimited Agent requests
+                        </li>
+                        <li>
+                            <span class="checkmark">✓</span>
+                            API calls
+                        </li>
+                        <li>
+                            <span class="checkmark">✓</span>
+                            Multiple background Agents
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="download-button primary">Get Enterprise</button>
+        </div>
+
     </div>
 </body>
 </html>

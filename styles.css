@@ -1,37 +1,55 @@
+/* ==========================================================================
+   GLOBAL RESET
+   Removes default browser spacing so we control layout from scratch.
+   box-sizing: border-box — padding counts inside an element's width.
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ==========================================================================
+   PAGE
+   Centers the card row on screen. min-height: 100vh = full viewport height.
+   ========================================================================== */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f7f7f4;
+    background-color: #f7f7f4;       /* page background — warm off-white */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;           /* horizontal center */
+    align-items: center;               /* vertical center */
     min-height: 100vh;
-    padding: 20px;
+    padding: 20px;                     /* breathing room on small screens */
 }
 
+/* ==========================================================================
+   CARDS LAYOUT
+   Flex row places cards side by side. gap = space between cards.
+   ========================================================================== */
 .cards-container {
     display: flex;
     flex-direction: row;
     gap: 24px;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap;                 /* keep cards on one row */
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-start;           /* align tops — cards can differ in height */
 }
 
+/* ==========================================================================
+   CARD
+   Fixed width + min-height keeps all three cards visually consistent.
+   flex-direction: column stacks content top → bottom; button sits at bottom.
+   ========================================================================== */
 .card {
     display: flex;
     flex-direction: column;
     min-height: 380px;
-    background-color: #f2f1ed;
+    background-color: #f2f1ed;         /* card surface — slightly darker than page */
     border-radius: 4px;
     padding: 16px;
     width: 320px;
-    flex-shrink: 0;
+    flex-shrink: 0;                    /* don't squish cards when space is tight */
 }
 
 .card-top {
@@ -39,34 +57,40 @@ body {
     flex-direction: column;
 }
 
+/* ==========================================================================
+   TYPOGRAPHY — title & price
+   ========================================================================== */
 .card-title {
     font-size: 22px;
     line-height: 28px;
     font-weight: 400;
-    color: #26251e;
+    color: #26251e;                    /* primary text — near-black */
     margin-bottom: 8px;
 }
 
 .card-price {
     font-size: 20px;
-    color: rgba(38, 37, 30, 0.5);
+    color: rgba(38, 37, 30, 0.5);      /* muted — 50% opacity of primary text */
     display: inline-flex;
-    align-items: baseline;
+    align-items: baseline;             /* aligns $20 and /mo. on the text baseline */
 }
 
 .card-price-amount {
-    font-size: 22px;
+    font-size: 22px;                   /* larger number draws the eye */
     font-weight: 400;
     color: rgba(38, 37, 30, 0.5);
 }
 
 .card-price-period {
-    font-size: 14px;
+    font-size: 14px;                   /* smaller suffix — "/mo." */
     color: rgba(38, 37, 30, 0.5);
 }
 
+/* ==========================================================================
+   FEATURE LIST
+   ========================================================================== */
 .card-content {
-    margin-bottom: 32px;
+    margin-bottom: 32px;               /* space above the button */
 }
 
 .includes-text {
@@ -76,14 +100,14 @@ body {
 }
 
 .features-list {
-    list-style: none;
+    list-style: none;                  /* removes default bullet dots */
     padding: 0;
 }
 
 .features-list li {
     display: flex;
-    align-items: center;
-    margin-bottom: 8px;
+    align-items: center;               /* vertically centers checkmark + text */
+    margin-bottom: 8px;                /* space between rows */
     font-size: 16px;
     color: #26251e;
 }
@@ -91,14 +115,19 @@ body {
 .checkmark {
     color: #26251e;
     font-size: 14px;
-    margin-right: 10px;
+    margin-right: 10px;                /* gap between ✓ and feature text */
     font-weight: 400;
 }
 
+/* ==========================================================================
+   BUTTONS
+   Base style for all buttons. margin-top: auto pushes button to card bottom.
+   border-radius: 999px = fully rounded pill shape.
+   ========================================================================== */
 .download-button {
     margin-top: auto;
-    width: fit-content;
-    background-color: #e6e5e0;
+    width: fit-content;                /* button only as wide as its label */
+    background-color: #e6e5e0;           /* default — light gray (secondary) */
     border: none;
     border-radius: 999px;
     padding: 14px 24px;
@@ -106,7 +135,7 @@ body {
     font-weight: 500;
     color: #333;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease;  /* smooth hover fade */
 }
 
 .download-button:hover {
@@ -114,9 +143,10 @@ body {
 }
 
 .download-button:active {
-    background-color: #D8D6CE;
+    background-color: #D8D6CE;         /* pressed state — same as hover here */
 }
 
+/* Variant: primary — dark filled button for main actions (Get Pro, etc.) */
 .download-button.primary {
     background-color: #111;
     color: #fff;
@@ -130,11 +160,29 @@ body {
     background-color: #333;
 }
 
+/* Variant: tertiary — text-only button with hover fill */
+.download-button.tertiary {
+    background-color: transparent;
+    color: #111;
+}
+
+.download-button.tertiary:hover {
+    background-color: #D8D6CE;
+}
+
+.download-button.tertiary:active {
+    background-color: #D8D6CE;
+}
+
+/* ==========================================================================
+   PAGE LABEL
+   Fixed badge at top of viewport — not part of the card layout.
+   ========================================================================== */
 .page-label {
     position: fixed;
     top: 16px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%);         /* centers horizontally on screen */
     font-size: 14px;
     color: #666;
     background: #fff;

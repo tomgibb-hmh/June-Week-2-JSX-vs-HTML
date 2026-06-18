@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing Plans — JSX version</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
 </head>
 <body>
     <div id="root"></div>
-    <script type="text/babel" data-type="module">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
+    <script type="text/babel" data-presets="react">
         // Components can be used INSIDE other components — this is called "composition"
         // This Button component is small, but it keeps button styling/logic in one place
         // "variant" defaults to "secondary" if not provided — this is called a default parameter
@@ -24,25 +27,29 @@
 
         // Same card UI, written as a JSX component (HTML-like syntax inside JavaScript)
         // This component is reusable - we can create multiple cards by passing different data
-        function PricingCard({ title, price, includesText, features, buttonText, buttonVariant }) {
+        function PricingCard({ title, price, pricePeriod, includesText, features, buttonText, buttonVariant }) {
             return (
                 // JSX uses "className" instead of "class" because "class" is a reserved word in JavaScript
                 <div className="card">
-                    {/* Curly braces { } let you insert JavaScript expressions into JSX */}
-                    <h1 className="card-title">{title}</h1>
-                    <p className="card-price">{price}</p>
-                    <div className="card-content">
-                        <p className="includes-text">{includesText}</p>
-                        <ul className="features-list">
-                            {/* .map() loops through the features array and creates a <li> for each item */}
-                            {features.map((feature, i) => (
-                                // "key" helps React track which items changed - using index (i) is OK for static lists
-                                <li key={i}>
-                                    <span className="checkmark">✓</span>
-                                    {feature}
-                                </li>
-                            ))}
-                        </ul>
+                    <div className="card-top">
+                        <h3 className="card-title">{title}</h3>
+                        <p className="card-price">
+                            <span className="card-price-amount">{price}</span>
+                            {pricePeriod && <span className="card-price-period">{pricePeriod}</span>}
+                        </p>
+                        <div className="card-content">
+                            <p className="includes-text">{includesText}</p>
+                            <ul className="features-list">
+                                {/* .map() loops through the features array and creates a <li> for each item */}
+                                {features.map((feature, i) => (
+                                    // "key" helps React track which items changed - using index (i) is OK for static lists
+                                    <li key={i}>
+                                        <span className="checkmark">✓</span>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                     {/* Using our Button component instead of a raw <button> element */}
                     <Button label={buttonText} variant={buttonVariant} />
@@ -56,14 +63,22 @@
             const hobbyPlan = {
                 title: 'Hobby',
                 price: 'Free',
+                pricePeriod: null,
                 includesText: 'Includes:',
-                features: ['No credit card required', 'Limited Agent requests', 'Limited Tab completions'],
+                features: [
+                    'No credit card required',
+                    'Limited Agent requests',
+                    'Limited Tab completions',
+                    'another',
+                ],
                 buttonText: 'Download',
-                buttonVariant: 'secondary',
+                buttonVariant: 'tertiary',
             };
+
             const proPlan = {
                 title: 'Pro',
-                price: '$20/mo.',
+                price: '$20',
+                pricePeriod: '/mo.',
                 includesText: 'Everything in Hobby, plus:',
                 features: [
                     'Extended limits on Agent',
@@ -71,10 +86,21 @@
                     'Background Agents',
                     'Maximum context windows',
                 ],
+                buttonText: 'Get Pro', 
+                buttonVariant: 'primary',
+            };
+            const enterprisePlan = {
+                title: 'Enterprise',
+                price: '$100',
+                pricePeriod: '/mo.',
+                includesText: 'Everything in Pro, plus:',
+                features: [
+                    'Awsome agents',
+                    'Maximum context windows',
+                ],
                 buttonText: 'Get Pro',
                 buttonVariant: 'primary',
             };
-
             return (
                 // <> is a React Fragment - it groups elements without adding extra HTML divs
                 <>
@@ -84,6 +110,7 @@
                         {/* This is the same as writing: title="Hobby" price="Free" includesText="Includes:" etc. */}
                         <PricingCard {...hobbyPlan} />
                         <PricingCard {...proPlan} />
+                        <PricingCard {...enterprisePlan} />
                     </div>
                 </>
             );
